@@ -863,7 +863,7 @@ function schedule(){clearTimeout(pollT);pollT=setTimeout(poll,6000)}
 function poll(){
   if(busy||(!first&&pending())){schedule();return}
   call("GET").then(function(d){
-    applyRemote(d||{});badge("● متزامن مع كل الأجهزة",true);
+    applyRemote(d||{});badge("",true);
     if(first){first=false}
     if(pending())pushNow();
   }).catch(function(e){badge("غير متصل بالمزامنة ("+String((e&&e.message)||e).slice(0,90)+") — هحاول تاني",false)}).then(schedule);
