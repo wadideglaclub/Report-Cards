@@ -777,7 +777,7 @@ var RK="wd_o1_ribbon", rows=get(RK,[]), editId=null;
 function fd(d){if(!d)return"";var p=d.split("-");return MONTHS[+p[1]-1]+" "+p[0]}
 rows.forEach(function(r){if(r.date&&r.date.length>7)r.date=r.date.slice(0,7)});
 function renderR(){
-  rows.sort(function(a,b){return (b.date||"").localeCompare(a.date||"")});
+  rows.sort(function(a,b){return (a.date||"").localeCompare(b.date||"")});
   $("#rbody").innerHTML=rows.length?rows.map(function(r){
     return "<tr><td>"+fd(r.date)+"</td><td class=n>"+esc(r.boxes)+"</td><td class=n>"+esc(r.cards)+"</td><td>"+esc(r.type)+"</td><td class=n>"+esc(r.waste)+"</td><td>"+esc(r.notes)+"</td>"+
     "<td style='white-space:nowrap'><button class='btn sm' data-e='"+r.id+"'>تعديل</button> <button class='btn sm del' data-d='"+r.id+"'>حذف</button></td></tr>";
@@ -863,7 +863,7 @@ function schedule(){clearTimeout(pollT);pollT=setTimeout(poll,6000)}
 function poll(){
   if(busy||(!first&&pending())){schedule();return}
   call("GET").then(function(d){
-    applyRemote(d||{});badge("",true);
+    applyRemote(d||{});badge("● متزامن مع كل الأجهزة",true);
     if(first){first=false}
     if(pending())pushNow();
   }).catch(function(e){badge("غير متصل بالمزامنة ("+String((e&&e.message)||e).slice(0,90)+") — هحاول تاني",false)}).then(schedule);
