@@ -847,13 +847,28 @@ function applyRemote(d){
     if($("#ribbon").classList.contains("on"))renderR();if($("#members").classList.contains("on"))renderM();
     if(window.__wdRender)window.__wdRender()}
 }
-/* ----- HTTP sync: /api/sync (Vercel + Redis) ----- */
-var API="/api/sync",pin="",first=true,pollT=null;
-try{pin=localStorage.getItem("wd_pin")||""}catch(e){}
+/* ----- Direct Supabase sync (same table app_state used by the main cards project) ----- */
+var first=true,pollT=null;
+var SB_URL="https://nlhjibxhxzwehlzlixgb.supabase.co",SB_KEY="sb_publishable_iiqsJZG2MfcrPNCpt8iiQA_kfDlzxd1",TBL=SB_URL+"/rest/v1/app_state";
+var K_REQ="wadi_degla_requests_final",K_MAN="wadi_degla_manual_card_reports";
+var SYNC_KEYS=[K_REQ,"wadi_degla_branches",K_MAN,"wd_o1_ribbon","wd_o1_members"];
+function H(extra){var h={apikey:SB_KEY,"Content-Type":"application/json"};for(var k in (extra||{}))h[k]=extra[k];return h}
+function noSeed(d){return Array.isArray(d)?d.filter(function(m){return String((m&&m.id)||"").indexOf("SEED-")!==0}):d}
+function chk(r){if(r.ok)return r.json();return r.text().then(function(t){var m=t;try{var j=JSON.parse(t);m=j.message||j.hint||t}catch(e){}throw new Error(m||("HTTP "+r.status))})}
 function call(method,body){
-  return fetch(API,{method:method,headers:{"Content-Type":"application/json","x-pin":pin},body:body?JSON.stringify(body):undefined,cache:"no-store"}).then(function(r){
-    if(r.status===401){var p=prompt("اكتب الرقم السري للمزامنة");if(p){pin=p;try{localStorage.setItem("wd_pin",p)}catch(e){}return call(method,body)}throw new Error("auth")}
-    if(!r.ok)return r.json().catch(function(){return{}}).then(function(j){throw new Error((j&&j.error)||("HTTP "+r.status))});return r.json()});
+  if(method==="GET"){
+    return fetch(TBL+"?select=key,data&key=in.("+SYNC_KEYS.join(",")+")",{headers:H(),cache:"no-store"}).then(chk).then(function(rows){
+      var o={};(rows||[]).forEach(function(r){var d=r.data;if(r.key===K_MAN)d=noSeed(d);if(d!=null)o[r.key]=JSON.stringify(d)});return o});
+  }
+  var rows=[];
+  SYNC_KEYS.forEach(function(k){
+    if(k===K_REQ||typeof body[k]!=="string")return; /* الطلبات للقراءة فقط */
+    var d;try{d=JSON.parse(body[k])}catch(e){return}
+    if(k===K_MAN)d=noSeed(d);
+    rows.push({key:k,data:d,writer:"reports",updated_at:new Date().toISOString()});
+  });
+  if(!rows.length)return Promise.resolve({ok:true});
+  return fetch(TBL+"?on_conflict=key",{method:"POST",headers:H({Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify(rows)}).then(function(r){return r.ok?{ok:true}:chk(r)});
 }
 function save(o){return call("POST",o)}
 ref={update:save,set:save};
