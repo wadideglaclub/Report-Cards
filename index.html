@@ -58,6 +58,75 @@ td input.cell{max-width:130px;text-align:center}
 .hint{color:var(--mute);font-size:13px;margin:10px 2px 0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media print{body{background:#fff;color:#000}.bar .btn,td:last-child,th:last-child{display:none}}
+
+/* ===== Redesign: ribbon + members ===== */
+.fld select{width:100%;height:46px;background:#0f0f0d;color:inherit;border:1px solid #3a3526;border-radius:12px;padding:0 12px;font:inherit;font-weight:700}
+:root{--teal:#3fb8a5;--sky:#5aa9e6;--card:#141412;--card2:#1b1a17}
+.bar2{display:flex;align-items:center;gap:12px;margin:4px 0 16px}
+.bar2 .ttl{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.bar2 .ti{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:24px;flex:none;background:linear-gradient(135deg,rgba(212,168,42,.28),rgba(212,168,42,.06));border:1px solid rgba(212,168,42,.35)}
+.members-th .ti{background:linear-gradient(135deg,rgba(63,184,165,.28),rgba(63,184,165,.06));border-color:rgba(63,184,165,.4)}
+.bar2 h2{margin:0;font-size:clamp(17px,4.6vw,22px);font-weight:900;line-height:1.3}
+.bar2 p{margin:2px 0 0;color:var(--mute);font-size:12.5px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:14px 14px 12px;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--c,var(--gold))}
+.kpi small{display:block;color:var(--mute);font-size:12.5px;font-weight:700;margin-bottom:6px}
+.kpi b{font-size:clamp(24px,6vw,30px);font-weight:900;color:var(--c,var(--gold2));font-variant-numeric:tabular-nums;line-height:1}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.tools .sp{flex:1}
+.btn{transition:transform .15s,background .15s,border-color .15s}
+.btn:hover{border-color:var(--gold);transform:translateY(-1px)}
+.btn.gold:hover{background:var(--gold2)}
+select.btn{padding:0 12px;cursor:pointer}
+.tw.pro{border-radius:18px;background:var(--card);box-shadow:0 14px 34px rgba(0,0,0,.35)}
+.tw.pro table{min-width:0}
+.tw.pro th{background:linear-gradient(180deg,#25231d,#1c1b17);color:var(--gold2);font-size:13.5px;padding:13px 12px;border-bottom:1px solid #3a3526}
+.tw.pro td{padding:12px;border-bottom:1px solid #24231f}
+.tw.pro tbody tr:nth-child(even){background:rgba(255,255,255,.025)}
+.tw.pro tbody tr:hover{background:rgba(212,168,42,.07)}
+.tw.pro tfoot td{background:linear-gradient(180deg,#26231a,#1d1b14);color:var(--gold2);font-size:15.5px;border-top:2px solid var(--gold)}
+.chip{display:inline-block;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:800;white-space:nowrap}
+.chip.m{background:rgba(212,168,42,.14);color:var(--gold2);border:1px solid rgba(212,168,42,.35)}
+.members-th~.tw .chip.m,.mem .chip.m{background:rgba(63,184,165,.13);color:#7fe0cf;border-color:rgba(63,184,165,.4)}
+.chip.t{background:rgba(90,169,230,.13);color:#9ccdf5;border:1px solid rgba(90,169,230,.35)}
+.chip.w{background:rgba(224,86,74,.14);color:#ff8f84;border:1px solid rgba(224,86,74,.4)}
+.chip.ok{background:rgba(255,255,255,.05);color:var(--mute);border:1px solid var(--line)}
+.note{color:var(--mute);font-size:13.5px;max-width:220px;text-align:right}
+.acts{white-space:nowrap}
+.mem td input.cell{max-width:150px;background:#0f0f0d;border:1px solid #2f2e29;border-radius:12px;font-weight:800;font-size:16px;transition:border-color .15s,box-shadow .15s}
+.mem td input.cell:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(63,184,165,.18);outline:none}
+.mem td input.cell:not(:placeholder-shown){border-color:rgba(63,184,165,.45)}
+.mem tfoot td{color:#7fe0cf;border-top-color:var(--teal)}
+.modal{border-radius:22px;border:1px solid #3a3526;box-shadow:0 24px 60px rgba(0,0,0,.6);background:linear-gradient(180deg,#1c1b17,#151412)}
+.modal h3{font-size:20px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.fld input:focus,.fld select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,168,42,.18);outline:none}
+.hint{display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.03);border:1px dashed var(--line);border-radius:12px;padding:10px 12px}
+.empty{font-size:15px}
+#typeFilter{display:none;min-width:130px}
+.tfin{margin-top:6px;height:30px;border-radius:9px;border:1px solid #3a3526;background:#0f0f0d;color:var(--gold2);font-size:12px;font-weight:700;padding:0 8px;min-width:110px;cursor:pointer}
+@media(max-width:680px){
+  #typeFilter{display:block}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .tw.pro{background:transparent;border:0;box-shadow:none;overflow:visible}
+  .tw.pro table,.tw.pro tbody,.tw.pro tfoot,.tw.pro tr,.tw.pro td{display:block;width:100%}
+  .tw.pro thead{display:none}
+  .tw.pro tbody tr{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-inline-start:4px solid var(--gold);border-radius:16px;margin-bottom:10px;padding:6px 14px 10px}
+  .mem.tw.pro tbody tr{border-inline-start-color:var(--teal)}
+  .tw.pro tbody tr:nth-child(even),.tw.pro tbody tr:hover{background:linear-gradient(180deg,var(--card2),var(--card))}
+  .tw.pro td{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-bottom:1px dashed #2a2924;text-align:left}
+  .tw.pro td:last-child{border-bottom:0}
+  .tw.pro td::before{content:attr(data-label);color:var(--mute);font-size:12.5px;font-weight:700;flex:none}
+  .tw.pro td.mo{justify-content:flex-start;border-bottom:1px solid #34322a;padding-bottom:10px}
+  .tw.pro td.mo::before,.tw.pro td.nl::before{display:none}
+  .tw.pro td.acts{justify-content:flex-end}.tw.pro td.acts::before{display:none}
+  .tw.pro td.nl{display:none}.tw.pro td.nl.has{display:block;text-align:right}
+  .tw.pro tfoot tr{border-radius:16px;background:linear-gradient(180deg,#26231a,#1d1b14);border:1px solid var(--gold);padding:6px 14px}
+  .tw.pro tfoot td{display:flex;justify-content:space-between;border:0;background:transparent;padding:7px 0;font-size:15px}
+  .tw.pro tfoot td:empty{display:none}
+  .tw.pro tfoot td::before{content:attr(data-label);color:var(--mute);font-size:12.5px;font-weight:700}
+  .mem td input.cell{max-width:130px}
+}
 </style>
 </head>
 <body>
@@ -80,35 +149,42 @@ td input.cell{max-width:130px;text-align:center}
 
 <!-- Ribbon & boxes -->
 <section id="ribbon" class="view">
-  <div class="bar">
+  <div class="bar2">
     <button class="btn" data-back>→ رجوع</button>
-    <h2>تقرير بالريبون وعلب الكارنيهات</h2>
+    <div class="ttl"><span class="ti">📦</span><div><h2>تقرير الريبون وعلب الكارنيهات</h2><p>متابعة شهرية: العلب · الكارنيهات · الهالك</p></div></div>
+  </div>
+  <div class="kpis" id="rkpi"></div>
+  <div class="tools"><span class="sp"></span>
+    <select id="typeFilter" class="btn" aria-label="النوع"><option value="all">كل الأنواع</option></select>
     <button class="btn" onclick="window.print()">🖨️ طباعة</button>
     <button class="btn gold" id="addRow">➕ إضافة صف</button>
   </div>
-  <div class="tw"><table>
-    <thead><tr><th>الشهر</th><th>عدد العلب</th> <th>عدد الكارنيهات</th>
-    <th>النوع</th><th>الهالك</th><th>الملاحظات</th><th></th></tr></thead>
+  <div class="tw pro"><table>
+    <thead><tr><th>الشهر</th><th>عدد العلب</th><th>عدد الكارنيهات</th><th>النوع<br><select id="typeFilterInside" class="tfin"><option value="all">كل الأنواع</option></select></th><th>الهالك</th><th>الملاحظات</th><th></th></tr></thead>
     <tbody id="rbody"></tbody>
     <tfoot id="rfoot"></tfoot>
   </table></div>
-  <p class="hint">البيانات بتتحفظ تلقائيًا على الجهاز ده. اضغط "تعديل" لتغيير أي صف.</p>
+  <p class="hint">☁️ البيانات بتتحفظ تلقائيًا وبتظهر على كل الأجهزة. اضغط "تعديل" لتغيير أي صف.</p>
 </section>
 
 <!-- Members delivery -->
-<section id="members" class="view">
-  <div class="bar">
+<section id="members" class="view mem">
+  <div class="bar2 members-th">
     <button class="btn" data-back>→ رجوع</button>
-    <h2>تسليم كارنيهات العضوية داخل الفرع</h2>
-    <select id="yr" class="btn"></select>
-    <button class="btn" onclick="window.print()">🖨️ طباعة</button>
+    <div class="ttl"><span class="ti">🪪</span><div><h2>تسليم كارنيهات العضوية داخل الفرع</h2><p>من يناير إلى ديسمبر</p></div></div>
   </div>
-  <div class="tw"><table>
-    <thead><tr><th>الشهر</th><th>عدد الكارنيهات</th><th>عدد العضويات</th><th>عدد كارنيهات العضويات الدولية</th></tr></thead>
+  <div class="kpis" id="mkpi"></div>
+  <div class="tools"><span class="sp"></span>
+    <select id="yr" class="btn" aria-label="السنة"></select>
+    <button class="btn" onclick="window.print()">🖨️ طباعة</button>
+    <button class="btn gold" id="addMem">➕ إضافة صف</button>
+  </div>
+  <div class="tw pro mem"><table>
+    <thead><tr><th>الشهر</th><th>عدد الكارنيهات</th><th>عدد العضويات</th><th>كارنيهات العضويات الدولية</th></tr></thead>
     <tbody id="mbody"></tbody>
     <tfoot id="mfoot"></tfoot>
   </table></div>
-  <p class="hint">اكتب الأرقام مباشرة في الجدول، وبتتحفظ تلقائيًا.</p>
+  <p class="hint">✍️ اكتب الأرقام مباشرة في الجدول، وبتتحفظ تلقائيًا وتظهر على كل الأجهزة.</p>
 </section>
 </div>
 
@@ -125,6 +201,21 @@ td input.cell{max-width:130px;text-align:center}
   value="علب كارنيهات"></datalist></div>
   <div class="fld"><label>الملاحظات</label><input id="f-notes"></div>
   <div class="row"><button class="btn gold" id="save">حفظ</button><button class="btn" id="cancel">إلغاء</button></div>
+</div></div>
+
+<!-- Members modal -->
+<div class="ov" id="ovm"><div class="modal">
+  <h3>إضافة / تعديل صف تسليم الكارنيهات</h3>
+  <div class="row">
+    <div class="fld"><label>السنة</label><select id="m-year"></select></div>
+    <div class="fld"><label>الشهر</label><select id="m-month"></select></div>
+  </div>
+  <div class="row">
+    <div class="fld"><label>عدد الكارنيهات</label><input type="number" min="0" id="m-cards"></div>
+    <div class="fld"><label>عدد العضويات</label><input type="number" min="0" id="m-mem"></div>
+    <div class="fld"><label>الدولية</label><input type="number" min="0" id="m-intl"></div>
+  </div>
+  <div class="row"><button class="btn gold" id="m-save">حفظ</button><button class="btn" id="m-cancel">إلغاء</button></div>
 </div></div>
 
 <script>
@@ -242,7 +333,7 @@ td input.cell{max-width:130px;text-align:center}
 
   /* ----------------------- Chart (inline SVG, no external deps) ----------------------- */
   function buildBarChart(categories, seriesList) {
-    var W = 760, H = 320, padL = 44, padR = 14, padT = 18, padB = 46;
+    var W = 760, H = 360, padL = 44, padR = 14, padT = 18, padB = 68;
     var plotW = W - padL - padR, plotH = H - padT - padB;
     var maxVal = 1;
     seriesList.forEach(function (s) { s.values.forEach(function (v) { if (v > maxVal) maxVal = v; }); });
@@ -273,11 +364,11 @@ td input.cell{max-width:130px;text-align:center}
       svg += '<text x="' + (gx + groupW / 2).toFixed(1) + '" y="' + (H - padB + 15).toFixed(1) + '" font-size="9" text-anchor="middle" fill="#3f3f46">' + esc(cat) + '</text>';
     });
     svg += '<line x1="' + padL + '" y1="' + (padT + plotH) + '" x2="' + (W - padR) + '" y2="' + (padT + plotH) + '" stroke="#0F0F0F" stroke-width="1.4"/>';
-    var ly = H - 16;
+        var baseY = H - 22;
     seriesList.forEach(function (s, i) {
-      var ex = padL + i * 150;
-      svg += '<rect x="' + ex + '" y="' + (ly - 9) + '" width="11" height="11" rx="3" fill="' + s.color + '"/>';
-      svg += '<text x="' + (ex + 15) + '" y="' + ly + '" font-size="10" fill="#0F0F0F" font-weight="700">' + esc(s.name) + '</text>';
+      var ly = baseY + i * 18, rx = W - padR;
+      svg += '<rect x="' + (rx - 11) + '" y="' + (ly - 9) + '" width="11" height="11" rx="3" fill="' + s.color + '"/>';
+      svg += '<text x="' + (rx - 17) + '" y="' + ly + '" font-size="11" fill="#0F0F0F" font-weight="700" text-anchor="end" direction="ltr" unicode-bidi="plaintext">' + esc(s.name) + '</text>';
     });
     svg += '</svg>';
     return svg;
@@ -329,10 +420,12 @@ td input.cell{max-width:130px;text-align:center}
     return html;
   }
 
-  function buildMonthlyTableWithEdit(rows2, footer) {
+    function buildMonthlyTableWithEdit(rows2, footer) {
     var html = '<div style="overflow-x:auto;border:1px solid #e4e4e7;border-radius:14px"><table style="width:100%;border-collapse:collapse;font-size:12.5px">';
     html += '<thead><tr style="background:#0F0F0F;color:#fff">';
-    ["الشهر", "طلبنا منه", "أرسلنا له", "الإجمالي", ""].forEach(function (h) {
+    var isMailers = (typeof state !== "undefined" && state.branch === "مايلرز");
+    var hdrs = isMailers ? ["الشهر", "عدد المرتجعات", "أرسلنا له", "الإجمالي", ""] : ["الشهر", "طلبنا منه", "أرسلنا له", "الإجمالي", ""];
+    hdrs.forEach(function (h) {
       html += '<th style="padding:10px 10px;text-align:center;font-weight:800;white-space:nowrap">' + esc(h) + '</th>';
     });
     html += '</tr></thead><tbody>';
@@ -370,6 +463,7 @@ td input.cell{max-width:130px;text-align:center}
   var panelOpen = false;
   var state = { branch: "all", year: null };
 
+  window.__wdResetReports = function(){ panelOpen=false; var ov=document.getElementById("wd-reports-overlay"); if(ov) ov.remove(); };
   function closePanel() {
     var ov = document.getElementById("wd-reports-overlay");
     if (ov) ov.remove();
@@ -433,7 +527,7 @@ td input.cell{max-width:130px;text-align:center}
       var c0 = (map[branch] && map[branch][year] && map[branch][year][0]) || null;
       if (c0) { totalReq2 += c0.requested; totalSent2 += c0.sent; }
       chartHost.innerHTML = buildBarChart(MONTH_NAMES, [
-        { name: "طلبنا منه", color: "#0F0F0F", values: reqVals2 },
+        { name: (state.branch === "مايلرز" ? "عدد المرتجعات" : "طلبنا منه"), color: "#0F0F0F", values: reqVals2 },
         { name: "أرسلنا له", color: "#FFD700", values: sentVals2 }
       ]);
       tableHost.innerHTML = buildMonthlyTableWithEdit(rows2, ["الإجمالي السنوي " + year, totalReq2, totalSent2, totalReq2 + totalSent2]) +
@@ -604,6 +698,7 @@ td input.cell{max-width:130px;text-align:center}
   function renderManualList() {
     var host = document.getElementById("wd-reports-manual");
     if (!host) return;
+    host.innerHTML = ""; return; /* مخفي: التسويات اليدوية متحسبة في الأرقام بس مش بتظهر */
     var manual = readList(MANUAL_KEY, []).filter(function (m) { return String(m.id || "").indexOf("SEED-") !== 0 || !m.month; });
     if (!manual.length) {
       host.innerHTML = '';
@@ -766,23 +861,51 @@ function set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}if(win
 function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 function show(id){document.querySelectorAll(".view").forEach(function(v){v.classList.toggle("on",v.id===id)});window.scrollTo(0,0)}
 document.querySelectorAll("[data-back]").forEach(function(b){b.onclick=function(){show("home")}});
-$("#b1").onclick=function(){ if(window.__wdOpenReports) window.__wdOpenReports(); };
+$("#b1").onclick=function(){ var ov=document.getElementById("wd-reports-overlay"); if(ov) ov.remove(); if(window.__wdResetReports) window.__wdResetReports(); if(window.__wdOpenReports) window.__wdOpenReports(); else { alert("جاري تحميل التقارير... حاول تاني بعد ثانية"); setTimeout(function(){ if(window.__wdOpenReports) window.__wdOpenReports(); }, 500); } };
 $("#b2").onclick=function(){renderR();show("ribbon")};
 $("#b3").onclick=function(){renderM();show("members")};
 
 /* ----- Ribbon & boxes ----- */
-var RK="wd_o1_ribbon", rows=get(RK,[]), editId=null;
+var RK="wd_o1_ribbon", rows=get(RK,[]), editId=null, currentTypeFilter="all";
 function fd(d){if(!d)return"";var p=d.split("-");return MONTHS[+p[1]-1]+" "+p[0]}
 rows.forEach(function(r){if(r.date&&r.date.length>7)r.date=r.date.slice(0,7)});
-function renderR(){
-  rows.sort(function(a,b){return (b.date||"").localeCompare(a.date||"")});
-  $("#rbody").innerHTML=rows.length?rows.map(function(r){
-    return "<tr><td>"+fd(r.date)+"</td><td class=n>"+esc(r.boxes)+"</td><td class=n>"+esc(r.cards)+"</td><td>"+esc(r.type)+"</td><td class=n>"+esc(r.waste)+"</td><td>"+esc(r.notes)+"</td>"+
-    "<td style='white-space:nowrap'><button class='btn sm' data-e='"+r.id+"'>تعديل</button> <button class='btn sm del' data-d='"+r.id+"'>حذف</button></td></tr>";
-  }).join(""):"<tr><td colspan=7 class=empty>لسه مفيش بيانات. اضغط \"إضافة صف\" وابدأ.</td></tr>";
-  var tb=0,tc=0,tw=0;rows.forEach(function(r){tb+=+r.boxes||0;tc+=+r.cards||0;tw+=+r.waste||0});
-  $("#rfoot").innerHTML=rows.length?"<tr><td>الإجمالي</td><td class=n>"+tb+"</td><td class=n>"+tc+"</td><td></td><td class=n>"+tw+"</td><td colspan=2></td></tr>":"";
+function updateTypeFilterOptions(){
+  var sel=$("#typeFilter"); var sel2=$("#typeFilterInside");
+  var mainSel=sel||sel2; if(!mainSel) return;
+  var types={}; rows.forEach(function(r){ if(r.type && r.type.trim()) types[r.type.trim()]=true; });
+  var cur=mainSel.value;
+  var opts='<option value="all">كل الأنواع</option>';
+  Object.keys(types).sort().forEach(function(t){ opts+='<option value="'+esc(t)+'">'+esc(t)+'</option>'; });
+  if(sel) sel.innerHTML=opts;
+  if(sel2) sel2.innerHTML=opts;
+  var newVal=types[cur]||cur==="all"?cur:"all";
+  if(sel) sel.value=newVal;
+  if(sel2) sel2.value=newVal;
+  currentTypeFilter=newVal;
 }
+function skey(d){var p=String(d||"").split("-"),y=+p[0]||0,m=+p[1]||0;return (m===12?y:y-1)*100+(m===12?0:m)}
+function kpi(label,val,c){return "<div class=kpi style='--c:"+c+"'><small>"+label+"</small><b>"+val+"</b></div>"}
+function renderR(){
+  rows.sort(function(a,b){return skey(a.date)-skey(b.date)});
+  updateTypeFilterOptions();
+  var f=rows.filter(function(r){return currentTypeFilter==="all"||(r.type||"").trim()===currentTypeFilter});
+  $("#rbody").innerHTML=f.length?f.map(function(r){
+    var w=+r.waste||0,nt=esc(r.notes);
+    return "<tr><td class='mo' data-label='الشهر'><span class='chip m'>"+fd(r.date)+"</span></td>"+
+    "<td class=n data-label='عدد العلب'>"+esc(r.boxes)+"</td><td class=n data-label='عدد الكارنيهات'>"+esc(r.cards)+"</td>"+
+    "<td data-label='النوع'>"+(r.type?"<span class='chip t'>"+esc(r.type)+"</span>":"—")+"</td>"+
+    "<td class=n data-label='الهالك'>"+(w>0?"<span class='chip w'>"+w+"</span>":"<span class='chip ok'>0</span>")+"</td>"+
+    "<td class='nl"+(nt?" has":"")+"' data-label='الملاحظات'><span class=note>"+(nt||"—")+"</span></td>"+
+    "<td class=acts><button class='btn sm' data-e='"+r.id+"'>تعديل</button> <button class='btn sm del' data-d='"+r.id+"'>حذف</button></td></tr>";
+  }).join(""):"<tr><td colspan=7 class=empty>لسه مفيش بيانات لهذا النوع.</td></tr>";
+  var tb=0,tc=0,tw=0;f.forEach(function(r){tb+=+r.boxes||0;tc+=+r.cards||0;tw+=+r.waste||0});
+  var lab="الإجمالي"+(currentTypeFilter==="all"?"":" ("+esc(currentTypeFilter)+")");
+  $("#rfoot").innerHTML=f.length?"<tr><td data-label='"+lab+"'>"+lab+"</td><td class=n data-label='عدد العلب'>"+tb+"</td><td class=n data-label='عدد الكارنيهات'>"+tc+"</td><td></td><td class=n data-label='الهالك'>"+tw+"</td><td colspan=2></td></tr>":"";
+  $("#rkpi").innerHTML=kpi("إجمالي العلب",tb,"var(--gold)")+kpi("إجمالي الكارنيهات",tc,"var(--sky)")+kpi("إجمالي الهالك",tw,"var(--danger)")+kpi("عدد الصفوف",f.length,"var(--teal)");
+}
+var tf=$("#typeFilter"),tf2=$("#typeFilterInside");
+function bindFilter(el){if(el){el.onchange=function(){currentTypeFilter=this.value;if(tf)tf.value=this.value;if(tf2)tf2.value=this.value;renderR()}}}
+bindFilter(tf);bindFilter(tf2);
 $("#rbody").onclick=function(e){
   var t=e.target;
   if(t.dataset.e){openF(t.dataset.e)}
@@ -810,16 +933,36 @@ var MK="wd_o1_members", md=get(MK,{});
 var yr=$("#yr"),cy=new Date().getFullYear();
 for(var y=2026;y<=2030;y++){var o=document.createElement("option");o.value=y;o.textContent=y;if(y===Math.min(Math.max(cy,2026),2030))o.selected=true;yr.appendChild(o)}
 yr.onchange=renderM;
+var ORDER=[0,1,2,3,4,5,6,7,8,9,10,11]; /* يناير ← ديسمبر (تسليم العضوية فقط) */
+function ordOf(d){return ORDER}
 function renderM(){
   var y=yr.value,d=md[y]||{};
-  $("#mbody").innerHTML=MONTHS.map(function(m,i){var c=d[i]||{};
-    return "<tr><td>"+m+"</td><td><input class=cell type=number min=0 data-m="+i+" data-k=cards value='"+esc(c.cards==null?"":c.cards)+"' aria-label='كارنيهات "+m+"'></td><td><input class=cell type=number min=0 data-m="+i+" data-k=mem value='"+esc(c.mem==null?"":c.mem)+"' aria-label='عضويات "+m+"'></td><td><input class=cell type=number min=0 data-m="+i+" data-k=intl value='"+esc(c.intl==null?"":c.intl)+"' aria-label='دولية "+m+"'></td></tr>"}).join("");
+  function inp(i,k,c,lab){return "<td data-label='"+lab+"'><input class=cell type=number min=0 placeholder='0' data-m="+i+" data-k="+k+" value='"+esc(c[k]==null?"":c[k])+"' aria-label='"+lab+" "+MONTHS[i]+"'></td>"}
+  $("#mbody").innerHTML=ordOf(d).map(function(i){var c=d[i]||{};
+    return "<tr><td class='mo' data-label='الشهر'><span class='chip m'>"+MONTHS[i]+"</span></td>"+inp(i,"cards",c,"عدد الكارنيهات")+inp(i,"mem",c,"عدد العضويات")+inp(i,"intl",c,"الدولية")+"</tr>";
+  }).join("");
   totM();
 }
 function totM(){
-  var d=md[yr.value]||{},a=0,b=0,c=0;Object.keys(d).forEach(function(k){a+=+d[k].cards||0;b+=+d[k].mem||0;c+=+d[k].intl||0});
-  $("#mfoot").innerHTML="<tr><td>إجمالي "+yr.value+"</td><td class=n>"+a+"</td><td class=n>"+b+"</td><td class=n>"+c+"</td></tr>";
+  var d=md[yr.value]||{},a=0,b=0,c=0;ordOf(d).forEach(function(k){var x=d[k]||{};a+=+x.cards||0;b+=+x.mem||0;c+=+x.intl||0});
+  $("#mfoot").innerHTML="<tr><td data-label='الإجمالي'>إجمالي "+yr.value+"</td><td class=n data-label='عدد الكارنيهات'>"+a+"</td><td class=n data-label='عدد العضويات'>"+b+"</td><td class=n data-label='الدولية'>"+c+"</td></tr>";
+  $("#mkpi").innerHTML=kpi("إجمالي الكارنيهات",a,"var(--gold)")+kpi("إجمالي العضويات",b,"var(--teal)")+kpi("الكارنيهات الدولية",c,"var(--sky)");
 }
+function fillMM(){var y=$("#m-year").value,m=$("#m-month").value,c=(md[y]||{})[m]||{};$("#m-cards").value=c.cards==null?"":c.cards;$("#m-mem").value=c.mem==null?"":c.mem;$("#m-intl").value=c.intl==null?"":c.intl}
+function openMM(){
+  var ys=$("#m-year"),ms=$("#m-month");
+  if(!ys.options.length)for(var y=2026;y<=2030;y++){var o=document.createElement("option");o.value=y;o.textContent=y;ys.appendChild(o)}
+  if(!ms.options.length)ORDER.forEach(function(i){var o=document.createElement("option");o.value=i;o.textContent=MONTHS[i];ms.appendChild(o)});
+  ys.value=yr.value;fillMM();$("#ovm").classList.add("on");
+}
+$("#addMem").onclick=openMM;$("#m-year").onchange=fillMM;$("#m-month").onchange=fillMM;
+$("#m-cancel").onclick=function(){$("#ovm").classList.remove("on")};
+$("#ovm").onclick=function(e){if(e.target.id==="ovm")$("#ovm").classList.remove("on")};
+$("#m-save").onclick=function(){
+  var y=$("#m-year").value,m=$("#m-month").value;
+  md[y]=md[y]||{};md[y][m]={cards:$("#m-cards").value,mem:$("#m-mem").value,intl:$("#m-intl").value};
+  set(MK,md);yr.value=y;$("#ovm").classList.remove("on");renderM();
+};
 $("#mbody").oninput=function(e){
   var t=e.target;if(t.dataset.m==null)return;
   var y=yr.value;md[y]=md[y]||{};md[y][t.dataset.m]=md[y][t.dataset.m]||{};
