@@ -2,6 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
+<meta name="theme-color" content="#0d0d0c" id="themeMeta">
+<script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("wd_theme")||"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>وادي دجلة - October 1 Report Cards</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap">
@@ -126,6 +128,45 @@ select.btn{padding:0 12px;cursor:pointer}
   .tw.pro tfoot td:empty{display:none}
   .tw.pro tfoot td::before{content:attr(data-label);color:var(--mute);font-size:12.5px;font-weight:700}
   .mem td input.cell{max-width:130px}
+}
+
+/* ===== Theme toggle (day / night) ===== */
+#themeBtn{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 12px);z-index:30;width:42px;height:42px;border-radius:50%;border:1px solid var(--gold);background:var(--panel);color:var(--ink);font-size:19px;line-height:1;display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.35);transition:transform .2s,background .2s}
+#themeBtn:hover{transform:scale(1.08)}
+@media print{#themeBtn{display:none}}
+/* تقارير تبادل الكارنيهات: ثابتة على وضع النهار دايمًا، والزرار بيختفي وهي مفتوحة */
+body:has(#wd-reports-overlay) #themeBtn,body:has(#wd-reports-add-overlay) #themeBtn{display:none}
+.bar,.bar2{padding-left:56px}
+html[data-theme="light"]{--bg:#f6f3ea;--panel:#fffdf7;--line:#e2d9c2;--gold:#c79a1c;--gold2:#8a6208;--ink:#1d1b16;--mute:#6b6556;--danger:#c0392b;--card:#fffdf7;--card2:#f8f2e0;--teal:#12806f;--sky:#2b78c2}
+html[data-theme="light"] body{background-image:radial-gradient(900px 400px at 50% -120px,rgba(212,168,42,.22),transparent)}
+html[data-theme="light"] .hero img{filter:drop-shadow(0 10px 20px rgba(0,0,0,.25))}
+html[data-theme="light"] .big:hover{background:#fbf5e3}
+html[data-theme="light"] .big .ic{background:#f3ecd7}
+html[data-theme="light"] .tw th,html[data-theme="light"] .tw tfoot td{background:#f3ecd7}
+html[data-theme="light"] .tw.pro th{background:linear-gradient(180deg,#f7f0dc,#efe5c8);border-bottom-color:#e2d3a4}
+html[data-theme="light"] .tw.pro{box-shadow:0 10px 26px rgba(120,90,20,.12)}
+html[data-theme="light"] .tw.pro td{border-bottom-color:#eee6d1}
+html[data-theme="light"] .tw.pro tbody tr:nth-child(even){background:rgba(0,0,0,.025)}
+html[data-theme="light"] .tw.pro tbody tr:hover{background:rgba(212,168,42,.12)}
+html[data-theme="light"] .tw.pro tfoot td{background:linear-gradient(180deg,#f6efd9,#eee3c3);color:#6e4f05}
+html[data-theme="light"] td input.cell,html[data-theme="light"] .fld input,html[data-theme="light"] .fld select,html[data-theme="light"] .mem td input.cell,html[data-theme="light"] .tfin{background:#fff;color:var(--ink);color-scheme:light;border-color:#d9cfb4}
+html[data-theme="light"] #f-date{color-scheme:light}
+html[data-theme="light"] #f-date::-webkit-calendar-picker-indicator{filter:none}
+html[data-theme="light"] .modal{background:linear-gradient(180deg,#fffdf7,#f8f2e0);border-color:#e2d3a4;box-shadow:0 24px 60px rgba(60,40,0,.25)}
+html[data-theme="light"] .ov{background:rgba(30,25,10,.45)}
+html[data-theme="light"] .hint{background:rgba(0,0,0,.03)}
+html[data-theme="light"] .btn.gold{color:#2a2008}
+html[data-theme="light"] .kpi{box-shadow:0 6px 18px rgba(120,90,20,.10)}
+html[data-theme="light"] .chip.m{color:#7a5606;background:rgba(212,168,42,.18)}
+html[data-theme="light"] .mem .chip.m{color:#0b6b5c;background:rgba(63,184,165,.16)}
+html[data-theme="light"] .chip.t{color:#1f5f9c}
+html[data-theme="light"] .chip.w{color:#b3261e}
+html[data-theme="light"] .mem tfoot td{color:#0b6b5c}
+@media(max-width:680px){
+  html[data-theme="light"] .tw.pro tbody tr,html[data-theme="light"] .tw.pro tbody tr:nth-child(even),html[data-theme="light"] .tw.pro tbody tr:hover{background:linear-gradient(180deg,#fffdf7,#f8f2e0)}
+  html[data-theme="light"] .tw.pro td{border-bottom-color:#e8dfc6}
+  html[data-theme="light"] .tw.pro td.mo{border-bottom-color:#e2d3a4}
+  html[data-theme="light"] .tw.pro tfoot tr{background:linear-gradient(180deg,#f6efd9,#eee3c3)}
 }
 </style>
 </head>
@@ -1019,13 +1060,22 @@ function schedule(){clearTimeout(pollT);pollT=setTimeout(poll,6000)}
 function poll(){
   if(busy||(!first&&pending())){schedule();return}
   call("GET").then(function(d){
-    applyRemote(d||{});badge("",true);
+    applyRemote(d||{});badge("● متزامن مع كل الأجهزة",true);
     if(first){first=false}
     if(pending())pushNow();
   }).catch(function(e){badge("غير متصل بالمزامنة ("+String((e&&e.message)||e).slice(0,90)+") — هحاول تاني",false)}).then(schedule);
 }
 document.addEventListener("visibilitychange",function(){if(!document.hidden)poll()});
 badge("جاري الاتصال بالمزامنة…",false);poll();
+})();
+</script>
+<button id="themeBtn" type="button" aria-label="تبديل الوضع الليلي / النهاري" title="الوضع الليلي / النهاري"></button>
+<script>
+(function(){
+  var b=document.getElementById("themeBtn"),root=document.documentElement,m=document.getElementById("themeMeta");
+  function paint(){var t=root.getAttribute("data-theme")==="light"?"light":"dark";b.textContent=t==="light"?"🌙":"☀️";b.setAttribute("aria-pressed",t==="dark");if(m)m.setAttribute("content",t==="light"?"#f6f3ea":"#0d0d0c")}
+  b.onclick=function(){var n=root.getAttribute("data-theme")==="light"?"dark":"light";root.setAttribute("data-theme",n);try{localStorage.setItem("wd_theme",n)}catch(e){}paint()};
+  paint();
 })();
 </script>
 </body>
